@@ -68,9 +68,9 @@ export default function CardList() {
 
 
   const cardsLayout = cards.map(({front, back, cardId}, index) => (
-    <div className="card" style={{ width: "10rem" }} key={index} onClick={() => {flipHandler(index); setMatch([...match, {index, cardId}])}}>
-      {!cardDisplay[index] ? <img src={`${front}`} style={{objectFit: "scale-down", width: "100%", height: "100%"}} className="card-img-top rounded" alt="question" />
-      : <img src={`${back}`} className="card-img-top" alt="shape" />}   
+    <div className="card" style={{ minWidth: "10rem", maxWidth: "10rem"}} key={index} onClick={() => {flipHandler(index); setMatch([...match, {index, cardId}])}}>
+      {!cardDisplay[index] ? <img src={`${front}`} style={{overflow: "hidden", maxWidth: "10rem", maxHeight: "10rem"}} className="card-img-top rounded" alt="question" />
+      : <img src={`${back}`} style={{overflow: "hidden", minWidth: "10rem", minHeight: "10rem"}} className="card-img-top" alt="shape" />}   
     </div>
   ));
 
