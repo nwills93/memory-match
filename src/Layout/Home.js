@@ -2,7 +2,8 @@ import React from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import Header from "../common/Header";
 import Play from "./Play";
-import CardList from "./CardList";
+import TestCard from "./TestCard"
+
 
 export default function Home() {
   const history = useHistory();
@@ -23,6 +24,9 @@ export default function Home() {
         </Route>
         <Route path="/play">
           <Play />
+        </Route>
+        <Route path="/test">
+          <TestCard />
         </Route>
       </Switch>
     </>
