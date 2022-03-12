@@ -1,6 +1,6 @@
 .scene {
-    width: 200px;
-    height: 260px;
+    width: 150px;
+    height: 195px;
     perspective: 600px;
   }
 
@@ -19,9 +19,9 @@
     backface-visibility: hidden;
 }
 
-.card__face--front {
+/* .card__face--front {
     background: red;
-  }
+  } */
 
   .card__face--back {
     background: blue;

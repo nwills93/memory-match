@@ -21,6 +21,8 @@ export default function CardList() {
     7: null,
     8: null,
     9: null,
+    10: null,
+    11: null,
   };
 
   const [cardDisplay, setCardDisplay] = useState({ ...initialDisplayState });
@@ -35,6 +37,8 @@ export default function CardList() {
     7: null,
     8: null,
     9: null,
+    10: null,
+    11: null,
   };
 
   const [disabled, setDisabled] = useState(initialDisabledState)
@@ -46,18 +50,18 @@ export default function CardList() {
 
   //TODO figure out how to have points as a dependency but not call setTimeout twice. OR make this same logic work without having to declare points.
   useEffect(() => {
-    //useEffect for when user is picking final match. Will not set turn after gets final match
+    //logic for when user is picking final match. Will not set turn after gets final match
     if (
       match.length === 2 &&
       match[0].cardId === match[1].cardId &&
-      points === 8
+      points === 10
     ) {
       setTimeout(() => {
         setMatch([]);
         setPoints((prevPoints) => prevPoints + 2);
       }, 1000);
     } else if (match.length === 2 && match[0].cardId === match[1].cardId) {
-      //useEffect for when user matches CORRECTLY.
+      //logic for when user matches CORRECTLY.
       setTimeout(() => {
         setPoints((prevPoints) => prevPoints + 2);
         setMatch([]);
@@ -67,7 +71,7 @@ export default function CardList() {
   }, [match]);
 
   useEffect(() => {
-    //useEffect for when user matches INCORRECTLY.
+    //logic for when user matches INCORRECTLY.
     if (match.length === 2 && match[0].cardId !== match[1].cardId) {
       setTimeout(() => {
         setDisabled((prevDisabledState) => {
@@ -123,7 +127,7 @@ export default function CardList() {
             }} 
             style={cardDisplay[index]}
           >
-            <img src={front} alt="logo" className="card__face card__face--front"/>
+            <img src={front} alt="logo" className="card__face"/>
             <img src={back} alt="mario" className="card__face card__face--back"/>
           </div>
         </div>

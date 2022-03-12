@@ -4,6 +4,7 @@ import luigi from "../images/8-86560_super-mario-luigi-luigi-de-mario-bros.png"
 import peach from "../images/princess-peach.png"
 import bowser from "../images/bowser.png"
 import toad from "../images/toad.png"
+import yoshi from "../images/yoshi.png"
 
 const CardData = [
     {
@@ -65,6 +66,18 @@ const CardData = [
         cardId: 5,
         front: logo,
         back: toad
+    },
+    {
+        id: 11,
+        cardId: 6,
+        front: logo,
+        back: yoshi
+    },
+    {
+        id: 12,
+        cardId: 6,
+        front: logo,
+        back: yoshi
     }
 ]
 
