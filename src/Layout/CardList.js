@@ -9,7 +9,7 @@ export default function CardList() {
   const [turn, setTurn] = useState(1);
   const [match, setMatch] = useState([]);
   const [points, setPoints] = useState(0);
-  const [disabled, setDisabled] = useState()
+  const history = useHistory();
 
   const initialDisplayState = {
     0: null,
@@ -24,7 +24,20 @@ export default function CardList() {
   };
 
   const [cardDisplay, setCardDisplay] = useState({ ...initialDisplayState });
-  const history = useHistory();
+
+  const initialDisabledState = {
+    0: null,
+    1: null,
+    2: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
+  };
+
+  const [disabled, setDisabled] = useState(initialDisabledState)
 
   //cards are randomly shuffled when game begins (i.e. page initially loads)
   useEffect(() => {
@@ -57,6 +70,13 @@ export default function CardList() {
     //useEffect for when user matches INCORRECTLY.
     if (match.length === 2 && match[0].cardId !== match[1].cardId) {
       setTimeout(() => {
+        setDisabled((prevDisabledState) => {
+          return {
+            ...prevDisabledState,
+            [match[0].index]: null,
+            [match[1].index]: null,
+          }
+        })
         setCardDisplay((prevCardDisplay) => {
           return {
             ...prevCardDisplay,
@@ -77,6 +97,13 @@ export default function CardList() {
     })
   }
 
+  const disabledHandler = (index) => {
+    setDisabled({
+      ...disabled,
+      [index]: "pe-none"
+    })
+  }
+
   const shuffleCards = () => {
     const shuffledCards = [...CardData]
       .sort(() => Math.random() - 0.5)
@@ -85,15 +112,20 @@ export default function CardList() {
   };
 
   const cardsLayout = cards.map(({ front, back, cardId}, index) => (
-    <div className="scene">
-        <div 
-          className="card" 
-          onClick={() => {
-            flipHandler(index);
-            setMatch([...match, {index, cardId}])
-          }} style={cardDisplay[index]}>
-          <img src={front} alt="logo" className="card__face card__face--front"/>
-          <img src={back} alt="mario" className="card__face card__face--back"/>
+    <div className={disabled[index]}>
+      <div className="scene">
+          <div 
+            className="card" 
+            onClick={() => {
+              flipHandler(index);
+              setMatch([...match, {index, cardId}])
+              disabledHandler(index)
+            }} 
+            style={cardDisplay[index]}
+          >
+            <img src={front} alt="logo" className="card__face card__face--front"/>
+            <img src={back} alt="mario" className="card__face card__face--back"/>
+          </div>
         </div>
       </div>
   ))
@@ -101,13 +133,6 @@ export default function CardList() {
   return (
     <>
       <div className="d-flex justify-content-center mt-2">
-        {/* <button
-          type="button"
-          className="btn btn-primary ms-2"
-          onClick={shuffleCards}
-        >
-          Shuffle
-        </button> */}
         <button
           type="button"
           className="btn btn-secondary ms-2"

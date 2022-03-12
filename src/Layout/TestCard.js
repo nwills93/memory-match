@@ -6,7 +6,7 @@ import mario from "../images/super-mario-free-clipart-png.png"
 export default function TestCard() {
     const [style, setStyle] = useState(null)
     const [isFlipped, setIsFlipped] = useState(false)
-
+    const [disabled, setDisabled] = useState(null)
     const flipHandler = () => {
         if(isFlipped === false) {
             setStyle({
@@ -19,13 +19,20 @@ export default function TestCard() {
     }
 
   return (
+    <div className={disabled}>
       <div className="scene">
-        <div className="card" onClick={flipHandler} style={style}>
-          {/* <div className="card__face card__face--front">front</div>
-          <div className="card__face card__face--back">back</div> */}
+        <div 
+          className="card" 
+          onClick={() => {
+            flipHandler()
+            setDisabled("pe-none")
+            }} 
+          style={style}
+        >
           <img src={logo} alt="logo" className="card__face card__face--front"/>
           <img src={mario} alt="mario" className="card__face card__face--back"/>
         </div>
       </div>
+    </div>
   );
 }
