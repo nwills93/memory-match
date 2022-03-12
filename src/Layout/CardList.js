@@ -2,32 +2,36 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import CardData from "../common/CardData";
 import "../CardList.css";
+import "./TestCard.css"
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
   const [turn, setTurn] = useState(1);
   const [match, setMatch] = useState([]);
   const [points, setPoints] = useState(0);
-  const [style, setStyle] = useState(null)
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [disabled, setDisabled] = useState()
 
   const initialDisplayState = {
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
+    0: null,
+    1: null,
+    2: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
   };
 
   const [cardDisplay, setCardDisplay] = useState({ ...initialDisplayState });
   const history = useHistory();
 
-  //TODO figure out how to have price as a dependency but not call setTimeout twice. OR make this same logic work without having to declare price.
+  //cards are randomly shuffled when game begins (i.e. page initially loads)
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+
+  //TODO figure out how to have points as a dependency but not call setTimeout twice. OR make this same logic work without having to declare points.
   useEffect(() => {
     //useEffect for when user is picking final match. Will not set turn after gets final match
     if (
@@ -56,8 +60,8 @@ export default function CardList() {
         setCardDisplay((prevCardDisplay) => {
           return {
             ...prevCardDisplay,
-            [match[0].index]: false,
-            [match[1].index]: false,
+            [match[0].index]: null,
+            [match[1].index]: null,
           };
         });
         setMatch([]);
@@ -67,24 +71,11 @@ export default function CardList() {
   }, [match]);
 
   const flipHandler = (index) => {
-    const flipStatus = cardDisplay[index];
     setCardDisplay({
       ...cardDisplay,
-      [index]: !flipStatus,
-    });
-  };
-
-//   const flipHandler = (index) => {
-//     const flipStatus = cardDisplay[index];
-//     if(flipStatus === false) {
-//         setStyle({
-//             transform: "rotateY(180deg)"
-//         })
-//     } else if(isFlipped === true) {
-//         setStyle(null)
-//     }  
-//     setIsFlipped(!isFlipped)
-// }
+      [index]: {transform: "rotateY(180deg)"}
+    })
+  }
 
   const shuffleCards = () => {
     const shuffledCards = [...CardData]
@@ -93,53 +84,30 @@ export default function CardList() {
     setCards(shuffledCards);
   };
 
-  const cardsLayout = cards.map(({ front, back, cardId }, index) => (
-    <div
-      className="card border border-secondary border-5 rounded-3 flip-card"
-      style={{ overflow: "hidden", minWidth: "10rem", maxWidth: "10rem" }}
-      key={index}
-      onClick={() => {
-        flipHandler(index);
-        setMatch([...match, { index, cardId }]);
-      }}
-    >
-      {!cardDisplay[index] ? (
-        <img
-          src={`${front}`}
-          style={{ maxWidth: "10rem", minHeight: "10rem" }}
-          className="card-img-top"
-          alt="question"
-        />
-      ) : (
-        <img
-          src={`${back}`}
-          style={{ minWidth: "10rem", minHeight: "10rem", maxHeight: "10rem" }}
-          className="card-img-top"
-          alt="shape"
-        />
-      )}
-    </div>
-  ));
-
-  // const cardsLayout = cards.map(({ front, back, cardId}, index) => (
-  //   <div className="scene">
-  //       <div className="card" onClick={() => flipHandler(index)} style={style}>
-  //         <img src={front} alt="logo" className="card__face card__face--front"/>
-  //         <img src={back} alt="mario" className="card__face card__face--back"/>
-  //       </div>
-  //     </div>
-  // ))
+  const cardsLayout = cards.map(({ front, back, cardId}, index) => (
+    <div className="scene">
+        <div 
+          className="card" 
+          onClick={() => {
+            flipHandler(index);
+            setMatch([...match, {index, cardId}])
+          }} style={cardDisplay[index]}>
+          <img src={front} alt="logo" className="card__face card__face--front"/>
+          <img src={back} alt="mario" className="card__face card__face--back"/>
+        </div>
+      </div>
+  ))
 
   return (
     <>
       <div className="d-flex justify-content-center mt-2">
-        <button
+        {/* <button
           type="button"
           className="btn btn-primary ms-2"
           onClick={shuffleCards}
         >
           Shuffle
-        </button>
+        </button> */}
         <button
           type="button"
           className="btn btn-secondary ms-2"
