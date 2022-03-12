@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import CardData from "../common/CardData";
 import "../CardList.css";
-import "./TestCard.css"
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
