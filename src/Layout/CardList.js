@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import CardData from "../common/CardData";
 import "../CardList.css";
+import MatchModal from "./Modals/MatchModal"
+import NoMatchModal from "./Modals/NoMatchModal"
+import SuccessModal from "./Modals/SuccessModal"
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
@@ -155,32 +158,9 @@ export default function CardList() {
       <div className="d-flex justify-content-center mt-2">
         <h3 style={{ color: "#032d5f" }}>Turn: {turn}</h3>
       </div>
-      {match.length === 2 &&
-        (match[0].cardId === match[1].cardId ? (
-          <div className="d-flex justify-content-center">
-            <h3 className="text-success">Match!</h3>
-          </div>
-        ) : (
-          <div className="d-flex justify-content-center">
-            <h3 className="text-danger">Pick again.</h3>
-          </div>
-        ))}
-      <div>
-        {cards.length !== 0 && points === cards.length && (
-          <div className="d-flex justify-content-center">
-            <h2 style={{ color: "#032d5f" }}>
-              You matched everything correctly, good memory!
-            </h2>
-            <button
-              type="button"
-              className="btn btn-danger ms-2"
-              onClick={() => history.go("/")}
-            >
-              Play Again
-            </button>
-          </div>
-        )}
-      </div>
+      <SuccessModal points={points} cards={cards} match={match}/>
+      <MatchModal match={match} cards={cards} points={points}/>
+      <NoMatchModal match={match} />
       <div className="d-flex justify-content-center mt-4">
         <div className="card-grid">{cardsLayout}</div>
       </div>

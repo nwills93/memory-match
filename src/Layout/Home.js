@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import Header from "../common/Header";
 import Play from "./Play";
 import TestCard from "./TestCard"
+import TestModal from "./Modals/MatchModal"
 
 
 export default function Home() {
@@ -27,6 +28,9 @@ export default function Home() {
         </Route>
         <Route path="/test">
           <TestCard />
+        </Route>
+        <Route path="/testmodal">
+          <TestModal />
         </Route>
       </Switch>
     </>
