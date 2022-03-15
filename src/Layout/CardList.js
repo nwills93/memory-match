@@ -117,8 +117,8 @@ export default function CardList() {
     setCards(shuffledCards);
   };
 
-  const cardsLayout = cards.map(({ front, back, cardId}, index) => (
-    <div className={disabled[index]}>
+  const cardsLayout = cards.map(({ front, back, cardId, id}, index) => (
+    <div className={disabled[index]} key={id}>
       <div className="scene">
           <div 
             className="card" 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useHistory} from "react-router-dom"
 import Modal from 'react-modal'
 
@@ -14,12 +14,12 @@ const customStyles = {
   };
   
   // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-  //Modal.setAppElement('#root');
+  Modal.setAppElement('#root');
   
    export default function MatchModal({points, cards, match}) {
     let subtitle;
     const history = useHistory()
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
   
     function openModal() {
       setIsOpen(true);

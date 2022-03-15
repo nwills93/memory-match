@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 
 const customStyles = {
@@ -13,11 +13,11 @@ const customStyles = {
   };
   
   // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-  //Modal.setAppElement('#root');
+  Modal.setAppElement('#root');
   
    export default function MatchModal({match, cards, points}) {
     let subtitle;
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
   
     function openModal() {
       setIsOpen(true);
