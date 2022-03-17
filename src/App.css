@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'SuperMarioBros-ov7d';
+  src: local('SuperMarioBros-ov7d'), url(./fonts/SuperMarioBros-ov7d.ttf) format('truetype')
+}
+
+.nintendoFont {
+  font-family: 'SuperMarioBros-ov7d'
+}

@@ -12,8 +12,6 @@ export default function TestCard() {
     const [timer, setTimer] = useState(60)
     const history = useHistory()
 
-     //TODO: checkout React Modal for modal window ideas!
-
     useEffect(() => {
         const timeout = setInterval(() => {
           setTimer(prevTimer => prevTimer - 1)
