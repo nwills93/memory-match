@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom"
 import "./TestCard.css"
+import "../App.css"
 import logo from "../images/1353380012-vector.png"
 import mario from "../images/super-mario-free-clipart-png.png"
+import TimesUpModal from "./Modals/TimesUpModal"
 
 
 export default function TestCard() {
@@ -16,15 +18,11 @@ export default function TestCard() {
         const timeout = setInterval(() => {
           setTimer(prevTimer => prevTimer - 1)
         }, 1000)
+        if (timer === 0) {
+          clearInterval(timeout)
+        }
       return () => clearInterval(timeout)
     }, [timer])
-
-    useEffect(() => {
-      if(timer === 0) {
-        window.confirm("Time's up!") ? history.go(0) : history.push("/")
-      }
-    }, [timer])
-
 
 
     const flipHandler = () => {
@@ -55,7 +53,10 @@ export default function TestCard() {
           </div>
         </div>
       </div>
-      <h3>{timer}</h3>
+      <div className="d-flex justify-content-end">
+        <p className="nintendoFont" style={{fontSize: "48px"}}>{timer}</p>
+      </div>
+      <TimesUpModal timer={timer}/>
     </>
     
   );

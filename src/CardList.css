@@ -34,3 +34,7 @@
     background: blue;
     transform: rotateY( 180deg );
   }
+
+  .nintendoFont {
+    font-family: 'SuperMarioBros-ov7d'
+  }

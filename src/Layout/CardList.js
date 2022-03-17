@@ -5,12 +5,14 @@ import "../CardList.css";
 import MatchModal from "./Modals/MatchModal"
 import NoMatchModal from "./Modals/NoMatchModal"
 import SuccessModal from "./Modals/SuccessModal"
+import TimesUpModal from "./Modals/TimesUpModal"
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
   const [turn, setTurn] = useState(1);
   const [match, setMatch] = useState([]);
   const [points, setPoints] = useState(0);
+  const [timer, setTimer] = useState(60);
   const history = useHistory();
 
   const initialDisplayState = {
@@ -117,6 +119,20 @@ export default function CardList() {
     setCards(shuffledCards);
   };
 
+  //Starts the timer and clears the timer when the user guesses everything correctly or if time runs out.
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      setTimer(prevTimer => prevTimer - 1)
+    }, 1000)
+    if(points === 12) {
+      clearInterval(timeout)
+    }
+    if (timer === 0) {
+      clearInterval(timeout)
+    }
+  return () => clearInterval(timeout)
+}, [timer, points])
+
   const cardsLayout = cards.map(({ front, back, cardId, id}, index) => (
     <div className={disabled[index]} key={id}>
       <div className="scene">
@@ -158,6 +174,10 @@ export default function CardList() {
       <div className="d-flex justify-content-center mt-2">
         <h3 style={{ color: "#032d5f" }}>Turn: {turn}</h3>
       </div>
+      <div className="d-flex justify-content-center">
+        <p className="nintendoFont" style={{fontSize: "48px", color: "#f32d54"}}>{timer}</p>
+      </div>
+      <TimesUpModal timer={timer}/>
       <SuccessModal points={points} cards={cards} match={match}/>
       <MatchModal match={match} cards={cards} points={points}/>
       <NoMatchModal match={match} />
