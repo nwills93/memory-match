@@ -47,6 +47,12 @@ const customStyles = {
         })
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        closeModal()
+        history.push("/scores")
+    }
+
     return (
         <div>
             <Modal
@@ -78,26 +84,48 @@ const customStyles = {
                     >
                     Home
                     </button>
-                    <form>
-                        <div>
-                            <label htmlFor="userName" className="form-label">
-                                User Name:
-                            </label>
-                            <input 
-                              value={scoreData.userName}
-                              onChange={handleChange}
-                              name="userName"
-                              id="userName"
-                              className="form-control"
-                            />
-                            <label htmlFor="time" className="form-label">
-                                Time Taken (in seconds):
-                            </label>
-                            <input 
-                                value={scoreData.time}/>
-                        </div>   
-                    </form>
                 </div>
+                    <form onSubmit={handleSubmit}>
+                        <fieldset>
+                            <legend>Submit your score!</legend>
+                            <div>
+                                <label htmlFor="userName" className="form-label">
+                                    User Name:
+                                </label>
+                                <input
+                                type="text" 
+                                value={scoreData.userName}
+                                onChange={handleChange}
+                                name="userName"
+                                id="userName"
+                                className="form-control"
+                                />
+                                <label htmlFor="time" className="form-label">
+                                    Time Taken (in seconds):
+                                </label>
+                                <input
+                                    type="number" 
+                                    value={scoreData.time}
+                                    onChange={handleChange}
+                                    name="time"
+                                    id="time"
+                                    className="form-control"
+                                />
+                                <label htmlFor="turns" className="form-label">
+                                    Turns Taken:
+                                </label>
+                                <input
+                                    type="number" 
+                                    value={scoreData.turns}
+                                    onChange={handleChange}
+                                    name="turns"
+                                    id="turns"
+                                    className="form-control"
+                                />
+                            </div>
+                            <button type="submit" className="btn mt-2" style={{color: "white", backgroundColor: "#032d5f"}}>Submit</button>
+                        </fieldset>   
+                    </form>
             </Modal>
         </div>
       
