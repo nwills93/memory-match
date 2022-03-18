@@ -1,14 +1,14 @@
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Header from "../common/Header";
 import Home from "./Home"
 import Play from "./Play";
 import TestCard from "./TestCard"
-import TestModal from "./Modals/MatchModal"
+import Scores from "./Scores"
 
 
 export default function Layout() {
-  const history = useHistory();
+
   return (
     <>
       <Header />
@@ -22,8 +22,8 @@ export default function Layout() {
         <Route path="/test">
           <TestCard />
         </Route>
-        <Route path="/testmodal">
-          <TestModal />
+        <Route path="/scores">
+          <Scores />
         </Route>
       </Switch>
     </>

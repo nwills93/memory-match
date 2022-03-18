@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom"
 import "./TestCard.css"
 import "../App.css"
 import logo from "../images/1353380012-vector.png"
@@ -12,7 +11,6 @@ export default function TestCard() {
     const [isFlipped, setIsFlipped] = useState(false)
     const [disabled, setDisabled] = useState(null)
     const [timer, setTimer] = useState(60)
-    const history = useHistory()
 
     useEffect(() => {
         const timeout = setInterval(() => {

@@ -47,6 +47,15 @@ export default function CardList() {
 
   const [disabled, setDisabled] = useState(initialDisabledState)
 
+  const initialScoreState = {
+    userName: "",
+    time: 0,
+    turns: 1,
+    difficulty: "easy"
+  }
+
+  const [scoreData, setScoreData] = useState({...initialScoreState})
+
   //cards are randomly shuffled when game begins (i.e. page initially loads)
   useEffect(() => {
     shuffleCards()
@@ -178,7 +187,7 @@ export default function CardList() {
         <p className="nintendoFont" style={{fontSize: "48px", color: "#f32d54"}}>{timer}</p>
       </div>
       <TimesUpModal timer={timer}/>
-      <SuccessModal points={points} cards={cards} match={match}/>
+      <SuccessModal points={points} cards={cards} match={match} scoreData={scoreData} setScoreData={setScoreData}/>
       <MatchModal match={match} cards={cards} points={points}/>
       <NoMatchModal match={match} />
       <div className="d-flex justify-content-center mt-4">

@@ -16,7 +16,7 @@ const customStyles = {
   // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
   Modal.setAppElement('#root');
   
-   export default function MatchModal({points, cards, match}) {
+   export default function MatchModal({points, cards, match, scoreData, setScoreData}) {
     let subtitle;
     const history = useHistory()
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -40,7 +40,13 @@ const customStyles = {
         }
     }, [match, points, cards.length])
   
-  
+    const handleChange = ({target}) => {
+        setScoreData({
+            ...scoreData,
+            [target.name]: target.value
+        })
+    }
+
     return (
         <div>
             <Modal
@@ -72,6 +78,25 @@ const customStyles = {
                     >
                     Home
                     </button>
+                    <form>
+                        <div>
+                            <label htmlFor="userName" className="form-label">
+                                User Name:
+                            </label>
+                            <input 
+                              value={scoreData.userName}
+                              onChange={handleChange}
+                              name="userName"
+                              id="userName"
+                              className="form-control"
+                            />
+                            <label htmlFor="time" className="form-label">
+                                Time Taken (in seconds):
+                            </label>
+                            <input 
+                                value={scoreData.time}/>
+                        </div>   
+                    </form>
                 </div>
             </Modal>
         </div>

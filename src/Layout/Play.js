@@ -1,5 +1,5 @@
 import React from "react"
-import {Route, Switch, Link} from "react-router-dom"
+import {Route} from "react-router-dom"
 import CardList from "./CardList"
 
 export default function Play() {
