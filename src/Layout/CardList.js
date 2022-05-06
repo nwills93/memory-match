@@ -14,39 +14,8 @@ export default function CardList() {
   const [points, setPoints] = useState(0);
   const [timer, setTimer] = useState(60);
   const history = useHistory();
-
-  // const initialDisplayState = {
-  //   0: null,
-  //   1: null,
-  //   2: null,
-  //   4: null,
-  //   5: null,
-  //   6: null,
-  //   7: null,
-  //   8: null,
-  //   9: null,
-  //   10: null,
-  //   11: null,
-  // };
-
-  // const [cardDisplay, setCardDisplay] = useState({ ...initialDisplayState });
   const [cardDisplay, setCardDisplay] = useState(null);
-
-  const initialDisabledState = {
-    0: null,
-    1: null,
-    2: null,
-    4: null,
-    5: null,
-    6: null,
-    7: null,
-    8: null,
-    9: null,
-    10: null,
-    11: null,
-  };
-
-  const [disabled, setDisabled] = useState(initialDisabledState)
+  const [disabled, setDisabled] = useState(null);
 
   const initialScoreState = {
     userName: "",
@@ -61,6 +30,7 @@ export default function CardList() {
   useEffect(() => {
     shuffleCards()
     setCardDisplay(createInitialDisplayState(cards))
+    setDisabled(createInitialDisabledState(cards))
   }, [])
 
   //TODO figure out how to have points as a dependency but not call setTimeout twice. OR make this same logic work without having to declare points.
@@ -136,6 +106,14 @@ export default function CardList() {
       initialDisplayState[index] = null
     })
     return initialDisplayState
+  }
+
+  const createInitialDisabledState = (cards) => {
+    const initialDisabledState = {};
+    cards.forEach((card, index) => {
+      initialDisabledState[index] = null
+    })
+    return initialDisabledState
   }
 
   //Starts the timer and clears the timer when the user guesses everything correctly or if time runs out.
