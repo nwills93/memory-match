@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import CardData from "../common/CardData";
 import "../CardList.css";
 import MatchModal from "./Modals/MatchModal"
 import NoMatchModal from "./Modals/NoMatchModal"
 import SuccessModal from "./Modals/SuccessModal"
 import TimesUpModal from "./Modals/TimesUpModal"
 
-export default function CardList() {
-  const [cards, setCards] = useState([]);
+export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer }) {
   const [turn, setTurn] = useState(1);
   const [match, setMatch] = useState([]);
   const [points, setPoints] = useState(0);
-  const [timer, setTimer] = useState(60);
   const history = useHistory();
   const [cardDisplay, setCardDisplay] = useState(null);
   const [disabled, setDisabled] = useState(null);
@@ -39,7 +36,7 @@ export default function CardList() {
     if (
       match.length === 2 &&
       match[0].cardId === match[1].cardId &&
-      points === 10
+      points === pointsToWin - 2
     ) {
       setTimeout(() => {
         setMatch([]);
@@ -94,9 +91,10 @@ export default function CardList() {
   }
 
   const shuffleCards = () => {
-    const shuffledCards = [...CardData]
+    const shuffledCards = [...cards]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card }));
+      console.log("shuffled cards", shuffledCards)
     setCards(shuffledCards);
   };
 
@@ -121,7 +119,7 @@ export default function CardList() {
     const timeout = setInterval(() => {
       setTimer(prevTimer => prevTimer - 1)
     }, 1000)
-    if(points === 12) {
+    if(points === pointsToWin) {
       clearInterval(timeout)
     }
     if (timer === 0) {
@@ -130,7 +128,7 @@ export default function CardList() {
   return () => clearInterval(timeout)
 }, [timer, points])
 
-  const cardsLayout = cards.map(({ front, back, cardId, id}, index) => (
+  const cardsLayout = cardDisplay && cards.map(({ front, back, cardId, id}, index) => (
     <div className={disabled[index]} key={id}>
       <div className="scene">
           <div 
