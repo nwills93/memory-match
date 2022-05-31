@@ -16,7 +16,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#bdf9e2"}}>
                                 <h5 className="card-title">Easy</h5>
                                 <p className="card-text">12 cards. 6 matches. Should be easy, right?</p>
-                                <Link to="/play"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/easy"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#f2ab1c"}}>
                                 <h5 className="card-title">Normal</h5>
                                 <p className="card-text text-center">24 cards. 12 matches. Intermediate players welcome!</p>
-                                <Link to="/play"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/medium"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#f32d54"}}>
                                 <h5 className="card-title">Hard</h5>
                                 <p className="card-text">36 cards. 18 matches. Oof, good luck.</p>
-                                <Link to="/play"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/hard"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
