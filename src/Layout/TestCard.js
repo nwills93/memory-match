@@ -12,15 +12,15 @@ export default function TestCard() {
     const [disabled, setDisabled] = useState(null)
     const [timer, setTimer] = useState(60)
 
-    useEffect(() => {
-        const timeout = setInterval(() => {
-          setTimer(prevTimer => prevTimer - 1)
-        }, 1000)
-        if (timer === 0) {
-          clearInterval(timeout)
-        }
-      return () => clearInterval(timeout)
-    }, [timer])
+    // useEffect(() => {
+    //     const timeout = setInterval(() => {
+    //       setTimer(prevTimer => prevTimer - 1)
+    //     }, 1000)
+    //     if (timer === 0) {
+    //       clearInterval(timeout)
+    //     }
+    //   return () => clearInterval(timeout)
+    // }, [timer])
 
 
     const flipHandler = () => {

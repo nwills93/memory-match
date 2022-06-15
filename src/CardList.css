@@ -6,10 +6,10 @@
 }
 
 .scene {
-    width: 150px;
-    height: 195px;
-    perspective: 600px;
-  }
+  width: 9vw;
+  height: 12vw;
+  perspective: 36vw;
+}
 
 .card {
     width: 100%;
@@ -26,9 +26,6 @@
     backface-visibility: hidden;
 }
 
-/* .card__face--front {
-    background: red;
-  } */
 
   .card__face--back {
     background: blue;

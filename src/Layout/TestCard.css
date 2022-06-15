@@ -1,7 +1,13 @@
-.scene {
+/* .scene {
     width: 150px;
     height: 195px;
     perspective: 600px;
+  } */
+
+  .scene {
+    width: 9vw;
+    height: 12vw;
+    perspective: 36vw;
   }
 
 .card {
