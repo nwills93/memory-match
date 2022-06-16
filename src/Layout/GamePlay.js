@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../CardList.css";
+import { createInitialDisplayState, createInitialDisabledState } from '../utils/gamePlayHelperFunctions'
 import MatchModal from "./Modals/MatchModal"
 import NoMatchModal from "./Modals/NoMatchModal"
 import SuccessModal from "./Modals/SuccessModal"
@@ -30,7 +31,6 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
     setDisabled(createInitialDisabledState(cards))
   }, [])
 
-  //TODO figure out how to have points as a dependency but not call setTimeout twice. OR make this same logic work without having to declare points.
   useEffect(() => {
     //logic for when user is picking final match. Will not set turn after gets final match
     if (
@@ -97,22 +97,6 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
       console.log("shuffled cards", shuffledCards)
     setCards(shuffledCards);
   };
-
-  const createInitialDisplayState = (cards) => {
-    const initialDisplayState = {};
-    cards.forEach((card, index) => {
-      initialDisplayState[index] = null
-    })
-    return initialDisplayState
-  }
-
-  const createInitialDisabledState = (cards) => {
-    const initialDisabledState = {};
-    cards.forEach((card, index) => {
-      initialDisabledState[index] = null
-    })
-    return initialDisabledState
-  }
 
   //Starts the timer and clears the timer when the user guesses everything correctly or if time runs out.
   useEffect(() => {
