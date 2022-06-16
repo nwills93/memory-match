@@ -30,3 +30,14 @@ export async function listAllScores(signal) {
     }
     return await fetchJson(url, options)
 }
+
+export async function createNewScore(score, signal) {
+    const url = `${API_BASE_URL}/scores`
+    const options = {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ data: score }),
+        signal
+    }
+    return await fetchJson(url, options)
+}

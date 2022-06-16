@@ -13,7 +13,7 @@ export default function Scores() {
 
     const scoreRows = scores.map((score, index) => (
         <tr key={index}>
-            <td className="nintendoFont">{score.user_name}</td>
+            <td className="nintendoFont">{score.username}</td>
             <td className="nintendoFont">{score.time_taken}</td>
             <td className="nintendoFont">{score.turns_taken}</td>
             <td className="nintendoFont">{score.difficulty_mode}</td>
@@ -21,7 +21,7 @@ export default function Scores() {
     ))
 
     return (
-        <div>
+        <div className="mx-5">
             <div className="d-flex justify-content-center my-2">
                 <Link to="/"><button type="button" className="btn btn-secondary">Home</button></Link>
             </div>

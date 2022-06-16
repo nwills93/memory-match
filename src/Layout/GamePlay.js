@@ -15,10 +15,10 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
   const [disabled, setDisabled] = useState(null);
 
   const initialScoreState = {
-    userName: "",
-    time: 0,
-    turns: 1,
-    difficulty: "easy"
+    username: "",
+    time_taken: 0,
+    turns_taken: 1,
+    difficulty_mode: ""
   }
 
   const [scoreData, setScoreData] = useState({...initialScoreState})

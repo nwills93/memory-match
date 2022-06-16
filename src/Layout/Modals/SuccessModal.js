@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useHistory} from "react-router-dom"
 import Modal from 'react-modal'
+import {createNewScore} from '../../utils/api'
 
 const customStyles = {
     content: {
@@ -48,9 +49,14 @@ const customStyles = {
     }
 
     const handleSubmit = (event) => {
+        const ac = new AbortController()
         event.preventDefault()
-        closeModal()
-        history.push("/scores")
+        createNewScore(scoreData, ac.signal)
+            .then(() => {
+                closeModal();
+                history.push("/scores");
+            })
+        return () => ac.abort()
     }
 
     return (
@@ -89,37 +95,48 @@ const customStyles = {
                         <fieldset>
                             <legend>Submit your score!</legend>
                             <div>
-                                <label htmlFor="userName" className="form-label">
+                                <label htmlFor="username" className="form-label">
                                     User Name:
                                 </label>
                                 <input
-                                type="text" 
-                                value={scoreData.userName}
-                                onChange={handleChange}
-                                name="userName"
-                                id="userName"
-                                className="form-control"
+                                    type="text" 
+                                    value={scoreData.username}
+                                    onChange={handleChange}
+                                    name="username"
+                                    id="username"
+                                    className="form-control"
                                 />
-                                <label htmlFor="time" className="form-label">
+                                <label htmlFor="difficulty_mode" className="form-label">
+                                    Difficulty:
+                                </label>
+                                <input 
+                                    type="text"
+                                    value={scoreData.difficulty_mode}
+                                    onChange={handleChange}
+                                    name="difficulty_mode"
+                                    id="difficulty_mode"
+                                    className="form-control"
+                                />
+                                <label htmlFor="time_taken" className="form-label">
                                     Time Taken (in seconds):
                                 </label>
                                 <input
                                     type="number" 
-                                    value={scoreData.time}
+                                    value={scoreData.time_taken}
                                     onChange={handleChange}
-                                    name="time"
-                                    id="time"
+                                    name="time_taken"
+                                    id="time_taken"
                                     className="form-control"
                                 />
-                                <label htmlFor="turns" className="form-label">
+                                <label htmlFor="turns_taken" className="form-label">
                                     Turns Taken:
                                 </label>
                                 <input
                                     type="number" 
-                                    value={scoreData.turns}
+                                    value={scoreData.turns_taken}
                                     onChange={handleChange}
-                                    name="turns"
-                                    id="turns"
+                                    name="turns_taken"
+                                    id="turns_taken"
                                     className="form-control"
                                 />
                             </div>
