@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import "../CardList.css";
 import { createInitialDisplayState, createInitialDisabledState } from '../utils/gamePlayHelperFunctions'
+import CardLayout from './CardLayout'
 import MatchModal from "./Modals/MatchModal"
 import NoMatchModal from "./Modals/NoMatchModal"
 import SuccessModal from "./Modals/SuccessModal"
@@ -112,23 +112,8 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
   return () => clearInterval(timeout)
 }, [timer, points])
 
-  const cardsLayout = cardDisplay && cards.map(({ front, back, cardId, id}, index) => (
-    <div className={disabled[index]} key={id}>
-      <div className="scene">
-          <div 
-            className="card" 
-            onClick={() => {
-              flipHandler(index);
-              setMatch([...match, {index, cardId}])
-              disabledHandler(index)
-            }} 
-            style={cardDisplay[index]}
-          >
-            <img src={front} alt="logo" className="card__face"/>
-            <img src={back} alt="mario" className="card__face card__face--back"/>
-          </div>
-        </div>
-      </div>
+  const cardsLayout = cardDisplay && cards.map((card, index) => (
+    <CardLayout card={card} index={index} disabled={disabled} flipHandler={flipHandler} match={match} setMatch={setMatch} disabledHandler={disabledHandler} cardDisplay={cardDisplay}/>
   ))
 
   return (
