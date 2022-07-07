@@ -19,9 +19,6 @@ export default function Layout() {
         <Route path="/difficulties">
           <Difficulties />
         </Route>
-        <Route path="/test">
-          <TestCard />
-        </Route>
         <Route path="/scores">
           <Scores />
         </Route>
