@@ -7,13 +7,13 @@ export default function Easy() {
     const [pointsToWin, setPointsToWin] = useState(12);
     const [timer, setTimer] = useState(60);
 
-    return (
-        <GamePlay 
-            cards={cards}
-            setCards={setCards}
-            pointsToWin={pointsToWin}
-            timer={timer}
-            setTimer={setTimer}
-        />
+    return (     
+            <GamePlay
+                cards={cards}
+                setCards={setCards}
+                pointsToWin={pointsToWin}
+                timer={timer}
+                setTimer={setTimer}
+            />  
     )
 }

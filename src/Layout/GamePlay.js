@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { createInitialDisplayState, createInitialDisabledState } from '../utils/gamePlayHelperFunctions'
+import useQuery from '../utils/useQuery'
 import CardLayout from './CardLayout'
 import MatchModal from "./Modals/MatchModal"
 import NoMatchModal from "./Modals/NoMatchModal"
@@ -15,21 +16,34 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
   const [cardDisplay, setCardDisplay] = useState(null);
   const [disabled, setDisabled] = useState(null);
 
+  const query = useQuery()
+
   const initialScoreState = {
     username: "",
     time_taken: 0,
     turns_taken: 1,
-    difficulty_mode: ""
+    difficulty_mode: query.get("mode")
   }
 
   const [scoreData, setScoreData] = useState({...initialScoreState})
+
+  // const shuffleCards = useCallback(() => {
+  //   const shuffledCards = [...cards]
+  //     .sort(() => Math.random() - 0.5)
+  //     .map((card) => ({ ...card }));
+  //   setCards(shuffledCards);
+  // }, [cards, setCards]);
+
+  const shuffleCards = useCallback(() => {
+    setCards([...cards].sort(() => Math.random() - 0.5).map((card) => ({ ...card })))
+  }, [])
 
   //cards are randomly shuffled when game begins (i.e. page initially loads)
   useEffect(() => {
     shuffleCards()
     setCardDisplay(createInitialDisplayState(cards))
     setDisabled(createInitialDisabledState(cards))
-  }, [])
+  }, [shuffleCards])
 
   useEffect(() => {
     //logic for when user is picking final match. Will not set turn after gets final match
@@ -90,14 +104,6 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
     })
   }
 
-  const shuffleCards = () => {
-    const shuffledCards = [...cards]
-      .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card }));
-      console.log("shuffled cards", shuffledCards)
-    setCards(shuffledCards);
-  };
-
   //Starts the timer and clears the timer when the user guesses everything correctly or if time runs out.
   useEffect(() => {
     const timeout = setInterval(() => {
@@ -113,7 +119,7 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
 }, [timer, points])
 
   const cardsLayout = cardDisplay && cards.map((card, index) => (
-    <CardLayout card={card} index={index} disabled={disabled} flipHandler={flipHandler} match={match} setMatch={setMatch} disabledHandler={disabledHandler} cardDisplay={cardDisplay}/>
+    <CardLayout key={index} card={card} index={index} disabled={disabled} flipHandler={flipHandler} match={match} setMatch={setMatch} disabledHandler={disabledHandler} cardDisplay={cardDisplay}/>
   ))
 
   return (
@@ -142,7 +148,7 @@ export default function GamePlay({ cards, setCards, pointsToWin, timer, setTimer
         <p className="nintendoFont" style={{fontSize: "48px", color: "#f32d54"}}>{timer}</p>
       </div>
       <TimesUpModal timer={timer}/>
-      <SuccessModal points={points} cards={cards} match={match} scoreData={scoreData} setScoreData={setScoreData}/>
+      <SuccessModal points={points} cards={cards} match={match} scoreData={scoreData} setScoreData={setScoreData} timer={timer} turn={turn}/>
       <MatchModal match={match} cards={cards} points={points}/>
       <NoMatchModal match={match} />
       <div className="d-flex justify-content-center mt-4">

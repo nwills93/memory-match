@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {useHistory} from "react-router-dom"
 import Modal from 'react-modal'
 import {createNewScore} from '../../utils/api'
+import useQuery from '../../utils/useQuery'
 
 const customStyles = {
     content: {
@@ -13,15 +14,31 @@ const customStyles = {
       transform: 'translate(-50%, -50%)',
     },
   };
-  
+
   // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
   Modal.setAppElement('#root');
   
-   export default function MatchModal({points, cards, match, scoreData, setScoreData}) {
+   export default function MatchModal({points, cards, match, scoreData, setScoreData, timer, turn}) {
     let subtitle;
-    const history = useHistory()
+    const history = useHistory()   
+    const query = useQuery()
     const [modalIsOpen, setIsOpen] = useState(false);
   
+    // useEffect(() => {
+    //     let startTime;
+    //     if (query.get("mode") === 'easy') {
+    //         startTime = 60
+    //     }
+    
+    //     else if (query.get("mode") === 'medium') {
+    //         startTime = 75
+    //     }
+    
+    //     else {
+    //         startTime = 90
+    //     }
+    // }, [])
+
     function openModal() {
       setIsOpen(true);
     }
@@ -37,7 +54,23 @@ const customStyles = {
 
     useEffect(() => {
         if(cards.length !== 0 && points === cards.length) {
+            let startTime;
+            let mode = query.get("mode")
+            
+            if (mode === 'easy') {
+                startTime = 60
+            } else if (mode === 'medium') {
+                startTime = 75
+            } else if (mode === 'hard') {
+                startTime = 90
+            }
+            
             openModal()
+            setScoreData({
+                ...scoreData,
+                time_taken: startTime - timer,
+                turns_taken: turn
+            })
         }
     }, [match, points, cards.length])
   

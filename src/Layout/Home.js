@@ -17,7 +17,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#bdf9e2"}}>
                                 <h5 className="card-title nintendoFont">Easy</h5>
                                 <p className="card-text">12 cards. 6 matches. Should be easy, right?</p>
-                                <Link to="/difficulties/easy"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/easy?mode=easy"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#f2ab1c"}}>
                                 <h5 className="card-title nintendoFont">Medium</h5>
                                 <p className="card-text">18 cards. 9 matches. Intermediate players welcome!</p>
-                                <Link to="/difficulties/medium"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/medium?mode=medium"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export default function Home() {
                             <div className="card-body d-flex flex-column justify-content-between align-items-center" style={{backgroundColor: "#f32d54"}}>
                                 <h5 className="card-title nintendoFont">Hard</h5>
                                 <p className="card-text">24 cards. 12 matches. Oof, good luck with that.</p>
-                                <Link to="/difficulties/hard"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
+                                <Link to="/difficulties/hard?mode=hard"><button type="button" className="btn" style={{color: "white", backgroundColor: "#032d5f"}}>Play</button></Link>
                             </div>
                     </div>
                 </div>
